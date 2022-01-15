@@ -1,17 +1,22 @@
-import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
-import './styles.css';
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { MoviePage } from "types/movie";
+import "./styles.css";
 
-function Pagination() {
+type Props = {
+  page: MoviePage;
+  onChange: Function;
+};
+
+function Pagination({ page, onChange }: Props) {
   return (
     <div className="dsmovie-pagination-container">
       <div className="dsmovie-pagination-box">
-        <button className="dsmovie-pagination-button" disabled={true}>
+        <button onClick={() => onChange(page.number - 1)} className="dsmovie-pagination-button" disabled={page.first}>
           <IoIosArrowBack />
         </button>
-        <p>{`${1} de ${3}`}</p>
-        <button className="dsmovie-pagination-button" disabled={false}>
+        <p>{`${page.number + 1} de ${page.totalPages}`}</p>
+        <button onClick={() => onChange(page.number + 1)} className="dsmovie-pagination-button" disabled={page.last}>
           <IoIosArrowForward />
-          {/* <Arrow className="dsmovie-flip-horizontal" /> */}
         </button>
       </div>
     </div>
